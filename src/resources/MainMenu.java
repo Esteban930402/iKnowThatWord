@@ -2,6 +2,10 @@ package resources;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.image.ImageObserver;
+import java.awt.image.ImageProducer;
 
 /**
  * This class is used for ...
@@ -11,14 +15,20 @@ import java.awt.*;
 public class MainMenu extends JFrame {
 
     private Header headerProject;
+    private JButton initGame,rules;
+
+    private JPanel principalPanel;
+    private JTextField playerUsername;
+
+    private Escucha escucha;
 
     public MainMenu(){
         initGUI();
         setIconImage(new ImageIcon(getClass().getResource("/resources/GuiFiles/Imagen1.jpg")).getImage());
         //Default JFrame configuration
+        this.setLayout(new BorderLayout());
         this.setTitle("I Know That Word");
-        this.setSize(200,100);
-        //this.pack();
+        this.setSize(1020,720);
         this.setResizable(true);
         this.setVisible(true);
         this.setLocationRelativeTo(null);
@@ -26,6 +36,33 @@ public class MainMenu extends JFrame {
     }
 
     private void initGUI() {
+        ImagePanel backgroundImage = new ImagePanel("/resources/GuiFiles/mainMenuBackground.jpg");
+        backgroundImage.setLayout(new BorderLayout());
+
+        escucha = new Escucha();
+
+        playerUsername = new JTextField(null,20);
+        playerUsername.setHorizontalAlignment(JTextField.CENTER);
+
+        principalPanel = new JPanel();
+
+        initGame = new JButton("Iniciar Juego");
+        initGame.addActionListener(escucha);
+
+        rules = new JButton("Reglas");
+        rules.addActionListener(escucha);
+
+        principalPanel.add(playerUsername);
+        principalPanel.add(initGame);
+        principalPanel.add(rules);
+
+        backgroundImage.add(principalPanel,BorderLayout.CENTER);
+
+
+        this.add(backgroundImage);
+        pack();
+        setLocationRelativeTo(null);
+
 
 
     }
@@ -37,7 +74,11 @@ public class MainMenu extends JFrame {
     }
 
 
-    private class Escucha {
+    private class Escucha implements ActionListener {
 
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+        }
     }
 }
